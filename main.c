@@ -22,7 +22,7 @@ int main(void)
     server_init();
     
     char line_buf[SHELL_DEFAULT_BUFSIZE];
-    shell_run(shell_command_t, line_buf, SHELL_DEFAULT_BUFSIZE);
+    shell_run(shell_commands, line_buf, SHELL_DEFAULT_BUFSIZE);
 
     return 0;
 }
