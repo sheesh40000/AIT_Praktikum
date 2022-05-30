@@ -19,6 +19,7 @@ int main(void)
     puts("Welcome to TESTAPP!\n");
     puts("Type `help` for help, type `saul` to see all SAUL devices\n");
 
+    msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
     server_init();
     
     char line_buf[SHELL_DEFAULT_BUFSIZE];
