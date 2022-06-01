@@ -357,4 +357,6 @@ int led_test_class(int argc, char **argv)
   printf("%d", argc);
   puts("argv: \n");
   printf("%s", argv[0]);
+  
+  return 1;
 }
