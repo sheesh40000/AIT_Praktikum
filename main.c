@@ -11,6 +11,7 @@ static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 
 static const shell_command_t shell_commands[] = {
     { "coap", "CoAP example", gcoap_cli_cmd },
+    { "led", "led test", led_test_class },
     { NULL, NULL, NULL }
 };
 
