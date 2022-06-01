@@ -353,4 +353,8 @@ int gcoap_cli_cmd(int argc, char **argv)
 int led_test_class(int argc, char **argv)
 {
   puts("this is led_test_class\n");
+  puts("argc: \n");
+  puts(argc);
+  puts("argv: \n");
+  puts(argv);
 }
