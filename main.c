@@ -6,6 +6,8 @@
 
 #include "gcoap_example.h"
 
+#include "saulcoap.h"
+
 #define MAIN_QUEUE_SIZE (4)
 static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 
