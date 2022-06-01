@@ -354,7 +354,7 @@ int led_test_class(int argc, char **argv)
 {
   puts("this is led_test_class\n");
   puts("argc: \n");
-  puts(argc);
+  printf("%d", argc);
   puts("argv: \n");
-  puts(argv);
+  printf("%c", argv);
 }
