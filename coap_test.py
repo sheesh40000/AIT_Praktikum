@@ -22,10 +22,9 @@ async def get_addr():
     
 async def get_sensors(addr_mc):
     protocol = await Context.create_client_context()
-    print("inside get_sensors")
     
     response = await protocol.request(Message(code=GET, uri=addr_mc + "/.well-known/core")).response
-    print("response= {}". format(response.payload))
+    print("response: {}". format(response.payload))
 
     sensor_list = str(response.payload)[2:]
     sensor_array = []
@@ -33,8 +32,14 @@ async def get_sensors(addr_mc):
         sensor_array.append(s)
         print(s)    
     
+    return sensor_array
     
     
+async def read_sensor_data(addr, sensor_array):
+    protocol = await Context.create_client_context()
+    for sensor in sensor_array:
+        response = await protocol.request(Message(code=GET, uri=addr + "/.well-known/core/" + sensor)).response
+        print("response: {}". format(response.payload))
 
 async def test_get():
 
@@ -68,3 +73,4 @@ async def test_put():
 if __name__ == '__main__':
     addr_mc = asyncio.run(get_addr())
     sensor_array = asyncio.run(get_sensors(addr_mc))
+    read_sensors(addr_mc, sensor_array)
