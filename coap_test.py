@@ -1,8 +1,9 @@
 from aiocoap import *
 import asyncio
 
+protocol = await Context.create_client_context()
+
 async def get_addr():
-    protocol = await Context.create_client_context()
     addr = "coap://[2001:67c:254:b0b2:affe:4000:0:1]/"
     response = await protocol.request(Message(code=GET, uri=addr + "endpoint-lookup/")).response
     
