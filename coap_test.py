@@ -19,7 +19,7 @@ async def get_addr():
     #################################
     
     
-def get_sensors(addr_mc):
+async def get_sensors(addr_mc):
     response = await protocol.request(Message(code=GET, uri=addr_mc + "/.well-known/core")).response
     print("response= {}". format(response.payload))
 
