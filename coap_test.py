@@ -15,11 +15,22 @@ async def get_addr():
     addr_mc = resp_str[addr_pos + 6:resp_str.find('"', addr_pos + 6)]
     print(addr_mc)
     
+    return addr_mc
     #################################
-    #addr_mc = 'coap://[2001:67c:254:b0b2:affe:49a0:3f3d:8de6]'
+    
+    
+def get_sensors(addr_mc):
     response = await protocol.request(Message(code=GET, uri=addr_mc + "/.well-known/core")).response
     print("response= {}". format(response.payload))
 
+    sensor_list = str(response.payload)
+    sensor_array = []
+    for s in sensor_list.split(","):
+        sensor_array.append(s)
+        print(s)    
+    
+    
+    
 
 async def test_get():
 
@@ -51,4 +62,5 @@ async def test_put():
 
         
 if __name__ == '__main__':
-    asyncio.run(get_addr())
+    addr_mc = asyncio.run(get_addr())
+    sensor_array = get_sensors()
