@@ -41,9 +41,9 @@ async def read_sensors(protocol, addr, sensor_array):
 async def main():    
     protocol = await Context.create_client_context()
     
-    addr_mc = await asyncio.run(get_addr(protocol))
-    sensor_array = await asyncio.run(get_sensors(protocol, addr_mc))
-    await asyncio.run(read_sensors(protocol, addr_mc, sensor_array))
+    addr_mc = await get_addr(protocol)
+    sensor_array = await get_sensors(protocol, addr_mc)
+    await read_sensors(protocol, addr_mc, sensor_array)
 
     
 if __name__ == '__main__':
