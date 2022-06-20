@@ -71,7 +71,7 @@ async def test_put():
 async def main():    
     protocol = await Context.create_client_context()
     
-    addr_mc = asyncio.run(get_addr(protocol))
+    addr_mc = get_addr(protocol)
     sensor_array = asyncio.run(get_sensors(protocol, addr_mc))
     asyncio.run(read_sensors(protocol, addr_mc, sensor_array))
 
