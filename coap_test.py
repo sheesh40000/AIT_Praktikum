@@ -46,6 +46,7 @@ async def led_blink(protocol, addr):
         payload = b"0"
         request = Message(code=PUT, payload=payload, uri=addr + s)
         response = await protocol.request(request).response
+        print('%s --- %s'%(addr, s))
         print('Result: %s --- %r'%(response.code, response.payload))
         
     print("leds off")
@@ -57,6 +58,7 @@ async def led_blink(protocol, addr):
         payload = b"1"
         request = Message(code=PUT, payload=payload, uri=addr + s)
         response = await protocol.request(request).response
+        print('%s --- %s'%(addr, s))
         print('Result: %s --- %r'%(response.code, response.payload))
         
     print("leds on")
