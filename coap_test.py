@@ -63,4 +63,4 @@ async def test_put():
         
 if __name__ == '__main__':
     addr_mc = asyncio.run(get_addr())
-    sensor_array = get_sensors()
+    sensor_array = get_sensors(addr_mc)
