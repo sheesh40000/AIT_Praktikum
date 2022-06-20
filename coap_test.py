@@ -54,6 +54,7 @@ async def main():
     addr_mc = await get_addr(protocol)
     sensor_array = await get_sensors(protocol, addr_mc)
     await read_sensors(protocol, addr_mc, sensor_array)
+    await turn_off_leds(protocol, addr_mc)
     
     
     
