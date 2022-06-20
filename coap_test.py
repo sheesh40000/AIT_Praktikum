@@ -44,9 +44,9 @@ async def main():
     addr_mc = await get_addr(protocol)
     sensor_array = await get_sensors(protocol, addr_mc)
     await read_sensors(protocol, addr_mc, sensor_array)
-    protocol.shutdown()
+    await protocol.shutdown()
     
-    return NULL
+    return 1
 
     
 if __name__ == '__main__':
