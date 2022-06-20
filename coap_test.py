@@ -34,6 +34,7 @@ async def get_sensors(protocol, addr_mc):
     
     
 async def read_sensors(protocol, addr, sensor_array):
+    main()
     for sensor in sensor_array:
         response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
         print("response: {}". format(response.payload))
