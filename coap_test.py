@@ -6,7 +6,7 @@ async def get_addr():
     addr = "coap://[2001:67c:254:b0b2:affe:4000:0:1]/"
     response = protocol.request(Message(code=GET, uri=addr + "endpoint-lookup/")).response
     # response = await
-    print("--->" + response)
+    print("---> {}".format(response.payload))
 
 
 async def test_get():
