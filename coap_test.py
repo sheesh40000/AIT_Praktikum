@@ -5,7 +5,7 @@ async def get_addr():
     protocol = await Context.create_client_context()
     addr = "coap://[2001:67c:254:b0b2:affe:4000:0:1]/"
     response = protocol.request(Message(code=GET, uri=addr + "endpoint-lookup/")).response
-    resp2 = ansycio.as_completed(response)
+    resp2 = asyncio.as_completed(response)
     print("---> {}".format(resp2.payload))
 
 
