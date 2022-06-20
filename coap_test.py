@@ -1,3 +1,4 @@
+import time
 from aiocoap import *
 import asyncio
 
@@ -69,7 +70,7 @@ async def test_put():
         
 if __name__ == '__main__':
     protocol = Context.create_client_context()
-    sleep(1)
+    time.sleep(1)
     
     addr_mc = asyncio.run(get_addr(protocol))
     sensor_array = asyncio.run(get_sensors(protocol, addr_mc))
