@@ -35,7 +35,7 @@ async def get_sensors(addr_mc):
     return sensor_array
     
     
-async def read_sensor_data(addr, sensor_array):
+async def read_sensors(addr, sensor_array):
     protocol = await Context.create_client_context()
     for sensor in sensor_array:
         response = await protocol.request(Message(code=GET, uri=addr + "/.well-known/core/" + sensor)).response
