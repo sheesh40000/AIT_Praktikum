@@ -17,8 +17,8 @@ async def get_addr():
     
     #################################
     #addr_mc = 'coap://[2001:67c:254:b0b2:affe:49a0:3f3d:8de6]'
-    response = await protocol.request(Message(code=GET, uri=addr_mc + ".well-known/core")).response
-    print("response19= {}". format(response.payload))
+    response = await protocol.request(Message(code=GET, uri=addr_mc + "/.well-known/core")).response
+    print("response= {}". format(response.payload))
 
 
 async def test_get():
