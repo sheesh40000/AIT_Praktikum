@@ -35,7 +35,7 @@ async def get_sensors(protocol, addr_mc):
 async def read_sensors(protocol, addr, sensor_array):
     for sensor in sensor_array:
         response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
-        print("sensor: " + sensor + "--------- response: {}". format(response.payload))
+        print("sensor: " + sensor + " --- response: {}". format(response.payload))
         
         
 async def led_blink(protocol, addr):
@@ -46,16 +46,17 @@ async def led_blink(protocol, addr):
         payload = b"false"
         request = Message(code=PUT, payload=payload, uri=addr + s)
         response = await protocol.request(request).response
-        print('Result: %s\n%r'%(response.code, response.payload))
+        print('Result: %s --- %r'%(response.code, response.payload))
         
     print("leds off")
     await read_sensors(protocol, addr, sensors)
     
     for s in sensors:
+        print(addr + s)
         payload = b"true"
         request = Message(code=PUT, payload=payload, uri=addr + s)
         response = await protocol.request(request).response
-        print('Result: %s\n%r'%(response.code, response.payload))
+        print('Result: %s --- %r'%(response.code, response.payload))
         
     print("leds on")
     await read_sensors(protocol, addr, sensors)
