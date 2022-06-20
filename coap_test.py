@@ -76,4 +76,4 @@ async def main():
     asyncio.run(read_sensors(protocol, addr_mc, sensor_array))
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
