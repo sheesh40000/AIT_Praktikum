@@ -29,8 +29,9 @@ async def get_sensors(addr_mc):
     sensor_list = str(response.payload)[2:]
     sensor_array = []
     for s in sensor_list.split(","):
-        sensor_array.append(s)
-        print(s)    
+        s_repl = s.replace("<", "").replace(">", "")
+        sensor_array.append(s_repl)
+        print(s_repl)    
     
     return sensor_array
     
