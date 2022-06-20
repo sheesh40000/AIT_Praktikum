@@ -10,7 +10,7 @@ async def get_addr():
     addr_pos = resp_str.find('base="');
     print(addr_pos)
     
-    addr_mc = resp_str[addr_pos:resp_str.find('"', addr_pos + 6)]
+    addr_mc = resp_str[addr_pos + 6:resp_str.find('"', addr_pos + 6)]
     print(addr_mc)
     
     print("---> {}".format(response.payload))
