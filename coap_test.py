@@ -48,8 +48,8 @@ async def led_blink(protocol, addr):
         request = Message(code=PUT, payload=payload, uri=addr + s)
         response = await protocol.request(request).response
         print('Result: %s --- %r'%(response.code, response.payload))
-        if not response.code.is_successful():
-            print("PUT failed")
+        if response.code.is_successful():
+            print("PUT worked")
         
     print("leds off")
     await asyncio.sleep(3)
