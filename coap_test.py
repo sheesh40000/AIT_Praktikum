@@ -14,7 +14,7 @@ async def get_addr():
     print(addr_mc)
     
     #################################
-    
+    addr_mc = 'coap://[2001:67c:254:b0b2:affe:49a0:3f3d:8de6]'
     response = await protocol.request(Message(code=GET, uri=addr_mc + "time/")).response
     print("response19= {}". format(response.payload))
 
