@@ -16,7 +16,6 @@ async def get_addr(protocol):
     print(addr_mc)
     
     return addr_mc
-    #################################
     
     
 async def get_sensors(protocol, addr_mc):
@@ -37,6 +36,22 @@ async def read_sensors(protocol, addr, sensor_array):
     for sensor in sensor_array:
         response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
         print("response: {}". format(response.payload))
+
+    
+async def main():    
+    protocol = await Context.create_client_context()
+    
+    addr_mc = await asyncio.run(get_addr(protocol))
+    sensor_array = await asyncio.run(get_sensors(protocol, addr_mc))
+    await asyncio.run(read_sensors(protocol, addr_mc, sensor_array))
+
+    
+if __name__ == '__main__':
+    asyncio.run(main())
+
+    
+    
+'''
 
 async def test_get():
 
@@ -67,13 +82,4 @@ async def test_put():
     print('Result: %s\n%r'%(response.code, response.payload))
 
 
-    
-async def main():    
-    protocol = await Context.create_client_context()
-    
-    addr_mc = get_addr(protocol)
-    sensor_array = asyncio.run(get_sensors(protocol, addr_mc))
-    asyncio.run(read_sensors(protocol, addr_mc, sensor_array))
-
-if __name__ == '__main__':
-    asyncio.run(main())
+'''
