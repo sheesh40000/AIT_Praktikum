@@ -1,7 +1,7 @@
 from aiocoap import *
 import asyncio
 
-async def test():
+async def test_get():
 
     protocol = await Context.create_client_context()
     addr = "coap://[2001:67c:254:b0b2:affe:4000:0:1]/"
@@ -16,5 +16,19 @@ async def test():
         print("Response from {}: {}".format(response.get_request_uri(), response.payload))
         
         
+async def test_put():
+    addr = "coap://[2001:67c:254:b0b2:affe:4000:0:1]/"
+    context = await Context.create_client_context()
+
+    await asyncio.sleep(2)
+
+    payload = b"test"
+    request = Message(code=PUT, payload=payload, uri=addr + "other/block")
+
+    response = await context.request(request).response
+
+    print('Result: %s\n%r'%(response.code, response.payload))
+
+        
 if __name__ == '__main__':
-    asyncio.run(test())
+    asyncio.run(test_put())
