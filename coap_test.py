@@ -1,6 +1,14 @@
 from aiocoap import *
 import asyncio
 
+async def get_addr():
+    protocol = await Context.create_client_context()
+    addr = "coap://[2001:67c:254:b0b2:affe:4000:0:1]/"
+    response = protocol.request(Message(code=GET, uri=addr + "endpoint-lookup/")).response
+    # response = await
+    print("--->" + response)
+
+
 async def test_get():
 
     protocol = await Context.create_client_context()
@@ -31,4 +39,4 @@ async def test_put():
 
         
 if __name__ == '__main__':
-    asyncio.run(test_put())
+    asyncio.run(get_addr())
