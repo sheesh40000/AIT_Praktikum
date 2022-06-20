@@ -7,6 +7,8 @@ async def get_addr():
     response = await protocol.request(Message(code=GET, uri=addr + "endpoint-lookup/")).response
     
     resp_str = str(response.payload)
+    print(resp_str)
+    
     addr_pos = resp_str.find('base="');
     print(addr_pos)
     
