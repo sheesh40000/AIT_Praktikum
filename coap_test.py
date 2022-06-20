@@ -36,6 +36,16 @@ async def read_sensors(protocol, addr, sensor_array):
     for sensor in sensor_array:
         response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
         print("response: {}". format(response.payload))
+        
+        
+async def turn_off_leds(protocol, addr):
+    sensors = ["/led/red","/led/blue","/led/green"]
+    
+    for s in sensors:
+        payload = b"0"
+        request = Message(code=PUT, payload=payload, uri=addr + s)
+        
+    print("leds off")
 
     
 async def main():    
@@ -44,10 +54,11 @@ async def main():
     addr_mc = await get_addr(protocol)
     sensor_array = await get_sensors(protocol, addr_mc)
     await read_sensors(protocol, addr_mc, sensor_array)
+    
+    
+    
     await protocol.shutdown()
     
-    return 1
-
     
 if __name__ == '__main__':
     asyncio.run(main())
