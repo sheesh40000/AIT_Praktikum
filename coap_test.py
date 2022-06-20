@@ -45,7 +45,7 @@ async def led_blink(protocol, addr):
     for s in sensors:
         payload = b"1 0"
         request = Message(code=PUT, payload=payload, uri=addr + s)
-        response = await context.request(request).response
+        response = await protocol.request(request).response
         print('Result: %s\n%r'%(response.code, response.payload))
         
     print("leds off")
@@ -54,7 +54,7 @@ async def led_blink(protocol, addr):
     for s in sensors:
         payload = b"1 1"
         request = Message(code=PUT, payload=payload, uri=addr + s)
-        response = await context.request(request).response
+        response = await protocol.request(request).response
         print('Result: %s\n%r'%(response.code, response.payload))
         
     print("leds on")
