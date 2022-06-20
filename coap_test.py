@@ -2,8 +2,7 @@ from aiocoap import *
 import asyncio
 
 
-async def get_addr():
-    protocol = await Context.create_client_context()
+async def get_addr(protocol):
     addr = "coap://[2001:67c:254:b0b2:affe:4000:0:1]/"
     response = await protocol.request(Message(code=GET, uri=addr + "endpoint-lookup/")).response
     
@@ -16,15 +15,11 @@ async def get_addr():
     addr_mc = resp_str[addr_pos + 6:resp_str.find('"', addr_pos + 6)]
     print(addr_mc)
     
-    protocol.shutdown()
-    
     return addr_mc
     #################################
     
     
-async def get_sensors(addr_mc):
-    protocol = await Context.create_client_context()
-    
+async def get_sensors(protocol, addr_mc):
     response = await protocol.request(Message(code=GET, uri=addr_mc + "/.well-known/core")).response
     print("response: {}". format(response.payload))
 
@@ -38,8 +33,7 @@ async def get_sensors(addr_mc):
     return sensor_array
     
     
-async def read_sensors(addr, sensor_array):
-    protocol = await Context.create_client_context()
+async def read_sensors(protocol, addr, sensor_array):
     for sensor in sensor_array:
         response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
         print("response: {}". format(response.payload))
@@ -74,6 +68,8 @@ async def test_put():
 
         
 if __name__ == '__main__':
-    addr_mc = asyncio.run(get_addr())
-    sensor_array = asyncio.run(get_sensors(addr_mc))
-    asyncio.run(read_sensors(addr_mc, sensor_array))
+    protocol = await Context.create_client_context()
+    
+    addr_mc = asyncio.run(get_addr(protocol))
+    sensor_array = asyncio.run(get_sensors(protocol, addr_mc))
+    asyncio.run(read_sensors(protocol, addr_mc, sensor_array))
