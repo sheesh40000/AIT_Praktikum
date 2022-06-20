@@ -16,7 +16,7 @@ async def get_addr():
     addr_mc = resp_str[addr_pos + 6:resp_str.find('"', addr_pos + 6)]
     print(addr_mc)
     
-    protocol.close()
+    protocol.shutdown()
     
     return addr_mc
     #################################
