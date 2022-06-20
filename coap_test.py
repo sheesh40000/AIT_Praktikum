@@ -27,7 +27,7 @@ async def get_sensors(addr_mc):
     response = await protocol.request(Message(code=GET, uri=addr_mc + "/.well-known/core")).response
     print("response= {}". format(response.payload))
 
-    sensor_list = str(response.payload)
+    sensor_list = str(response.payload)[2:]
     sensor_array = []
     for s in sensor_list.split(","):
         sensor_array.append(s)
