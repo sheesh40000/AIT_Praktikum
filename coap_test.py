@@ -91,7 +91,7 @@ async def main():
     print(uri)
     payload = bytes(str(0), 'ascii')
     #payload = b"0"
-    request = Message(code=PUT, payload=payload, uri=uri)
+    request = Message(code=PUT, payload=0, uri=uri)
     response = await protocol.request(request).response
     
      
@@ -100,7 +100,7 @@ async def main():
     print(uri)
     payload = bytes(str(0), 'ascii')
     #payload = b"0"
-    request = Message(code=PUT, payload=payload, uri=uri)
+    request = Message(code=PUT, payload=0, uri=uri)
     response = await protocol.request(request).response
     
     
@@ -109,7 +109,7 @@ async def main():
     print(uri)
     payload = bytes(str(0), 'ascii')
     #payload = b"0"
-    request = Message(code=PUT, payload=payload, uri=uri)
+    request = Message(code=PUT, payload="0", uri=uri)
     response = await protocol.request(request).response
     
     
@@ -119,7 +119,7 @@ async def main():
     print(uri)
     payload = bytes(str(1), 'ascii')
     #payload = b"0"
-    request = Message(code=PUT, payload=payload, uri=uri)
+    request = Message(code=PUT, payload=b"1", uri=uri)
     response = await protocol.request(request).response
     
     await protocol.shutdown()
