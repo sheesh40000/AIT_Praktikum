@@ -37,11 +37,10 @@ async def read_sensors(protocol, addr, sensor_array):
         response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
         print("sensor: " + sensor + " --- response: {}". format(response.payload))
         
-        
-async def led_blink(protocol, addr):
-    sensors = ["/led/red","/led/blue","/led/green"]
     
-    await read_sensors(protocol, addr, sensors)
+
+    
+async def leds_out(protocol, addr, sensors):
     for s in sensors:
         payload = bytes(str(0), 'ascii')
         #payload = b"0"
@@ -49,20 +48,32 @@ async def led_blink(protocol, addr):
         print(addr + s)
         response = await protocol.request(request).response
         print('Result: %s --- %r'%(response.code, response.payload))
-        
-    print("leds off")
-    await asyncio.sleep(3)
     
-    await read_sensors(protocol, addr, sensors)
-    
+async def leds_on(protocol, addr, sensors):
     for s in sensors:
         payload = bytes(str(1), 'ascii')
-        #payload = b"1"
-        request = Message(code=PUT, payload=payload, uri=addr + s)
+        #payload = b"0"
+        request = Message(code=PUT, payload=payload, uri=str(addr + s))
+        print(addr + s)
         response = await protocol.request(request).response
         print('Result: %s --- %r'%(response.code, response.payload))
-        
+    
+async def led_blink(protocol, addr):
+    sensors = ["/led/red","/led/blue","/led/green"]
+    
+    print("Begin led_blink()")
+    await read_sensors(protocol, addr, sensors)
+    
+    print("Begin leds_out()")
+    await leds_out(protocol, addr, sensors)        
+    print("leds off")
+    
+    await asyncio.sleep(3)
+    
+    print("Begin leds_on()")
+    await leds_on(protocol, addr, sensors)        
     print("leds on")
+    
     await read_sensors(protocol, addr, sensors)
 
     
