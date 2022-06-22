@@ -68,6 +68,7 @@ async def led_blink(protocol, addr):
     await leds_out(protocol, addr, sensors)        
     print("leds off")
     
+    await read_sensors(protocol, addr, sensors)
     await asyncio.sleep(3)
     
     print("Begin leds_on()")
