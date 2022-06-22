@@ -92,7 +92,6 @@ async def main():
     payload = bytes(str(0), 'ascii')
     #payload = b"0"
     request = Message(code=PUT, payload=payload, uri=uri)
-    print(addr + s)
     response = await protocol.request(request).response
     
     await protocol.shutdown()
