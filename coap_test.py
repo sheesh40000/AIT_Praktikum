@@ -112,6 +112,16 @@ async def main():
     request = Message(code=PUT, payload=payload, uri=uri)
     response = await protocol.request(request).response
     
+    
+    
+    uri = addr_mc + "/led/blue"
+    
+    print(uri)
+    payload = bytes(str(1), 'ascii')
+    #payload = b"0"
+    request = Message(code=PUT, payload=payload, uri=uri)
+    response = await protocol.request(request).response
+    
     await protocol.shutdown()
     
     
