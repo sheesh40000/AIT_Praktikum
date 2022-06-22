@@ -44,7 +44,7 @@ async def leds_out(protocol, addr, sensors):
     for s in sensors:
         payload = bytes(str(0), 'ascii')
         #payload = b"0"
-        request = Message(code=PUT, payload=payload, uri=str(addr + s))
+        request = Message(code=POST, payload=payload, uri=str(addr + s))
         print(addr + s)
         response = await protocol.request(request).response
         print('Result: %s --- %r'%(response.code, response.payload))
@@ -53,7 +53,7 @@ async def leds_on(protocol, addr, sensors):
     for s in sensors:
         payload = bytes(str(1), 'ascii')
         #payload = b"0"
-        request = Message(code=PUT, payload=payload, uri=str(addr + s))
+        request = Message(code=POST, payload=payload, uri=str(addr + s))
         print(addr + s)
         response = await protocol.request(request).response
         print('Result: %s --- %r'%(response.code, response.payload))
@@ -84,8 +84,8 @@ async def main():
     addr_mc = await get_addr(protocol)
     sensor_array = await get_sensors(protocol, addr_mc)
     #await read_sensors(protocol, addr_mc, sensor_array)
-    #await led_blink(protocol, addr_mc)
-    
+    await led_blink(protocol, addr_mc)
+    '''
     addr_mc = "coap://[2001:67c:254:b0b2:affe:45fc:fd31:5fde]"
     
     uri = addr_mc + "/led/red"
@@ -127,7 +127,7 @@ async def main():
     print(payload)
     request = Message(code=POST, payload=payload, uri=uri)
     response = await protocol.request(request).response
-    
+    '''
     await protocol.shutdown()
     
     
