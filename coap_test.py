@@ -86,6 +86,8 @@ async def main():
     #await read_sensors(protocol, addr_mc, sensor_array)
     #await led_blink(protocol, addr_mc)
     
+    addr_mc = "coap://[2001:67c:254:b0b2:affe:45fc:fd31:5fde]"
+    
     uri = addr_mc + "/led/red"
     
     print(uri)
