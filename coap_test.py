@@ -43,6 +43,7 @@ async def read_sensors(protocol, addr, sensor_array):
 async def leds_out(protocol, addr, sensors):
     for s in sensors:
         payload = bytes(str(0), 'ascii')
+        print(payload)
         #payload = b"0"
         request = Message(code=PUT, payload=payload, uri=str(addr + s))
         print(addr + s)
@@ -52,6 +53,8 @@ async def leds_out(protocol, addr, sensors):
 async def leds_on(protocol, addr, sensors):
     for s in sensors:
         payload = bytes(str(1), 'ascii')
+        
+        print(payload)
         #payload = b"0"
         request = Message(code=PUT, payload=payload, uri=str(addr + s))
         print(addr + s)
