@@ -36,29 +36,23 @@ async def read_sensors(protocol, addr, sensor_array):
     for sensor in sensor_array:
         response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
         print("sensor: " + sensor + " --- response: {}". format(response.payload))
-        
-    
 
-    
+
 async def leds_out(protocol, addr, sensors):
     for s in sensors:
         payload = bytes(str(0), 'ascii')
         #payload = b"0"
-        print(payload)
         request = Message(code=PUT, payload=payload, uri=str(addr + s))
-        print(addr + s)
         response = await protocol.request(request).response
-        print('Result: %s --- %r'%(response.code, response.payload))
     
+
 async def leds_on(protocol, addr, sensors):
     for s in sensors:
         payload = bytes(str(1), 'ascii')
         #payload = b"1"
-        print(payload)
         request = Message(code=PUT, payload=payload, uri=str(addr + s))
-        print(addr + s)
         response = await protocol.request(request).response
-        print('Result: %s --- %r'%(response.code, response.payload))
+        
     
 async def led_blink(protocol, addr):
     sensors = ["/led/red","/led/blue","/led/green"]
@@ -86,50 +80,9 @@ async def main():
     addr_mc = await get_addr(protocol)
     sensor_array = await get_sensors(protocol, addr_mc)
     #await read_sensors(protocol, addr_mc, sensor_array)
+    
     await led_blink(protocol, addr_mc)
-    '''
-    addr_mc = "coap://[2001:67c:254:b0b2:affe:45fc:fd31:5fde]"
     
-    uri = addr_mc + "/led/red"
-    
-    print(uri)
-    payload = bytes(str(0), 'ascii')
-    #payload = b"0"
-    print(payload)
-    request = Message(code=POST, payload=payload, uri=uri)
-    response = await protocol.request(request).response
-    
-     
-    uri = addr_mc + "/led/green"
-    
-    print(uri)
-    payload = bytes(str(0), 'ascii')
-    #payload = b"0"
-    print(payload)
-    request = Message(code=POST, payload=payload, uri=uri)
-    response = await protocol.request(request).response
-    
-    
-    uri = addr_mc + "/led/blue"
-    
-    print(uri)
-    payload = bytes(str(0), 'ascii')
-    #payload = b"0"
-    print(payload)
-    request = Message(code=POST, payload=payload, uri=uri)
-    response = await protocol.request(request).response
-    
-    
-    
-    uri = addr_mc + "/led/blue"
-    
-    print(uri)
-    payload = bytes(str(1), 'ascii')
-    #payload = b"0"
-    print(payload)
-    request = Message(code=POST, payload=payload, uri=uri)
-    response = await protocol.request(request).response
-    '''
     await protocol.shutdown()
     
     
