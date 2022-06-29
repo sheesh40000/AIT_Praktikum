@@ -88,12 +88,13 @@ async def main():
     protocol = await Context.create_client_context()
     
     addr_mc = await get_addr(protocol)
-    sensor_array = await get_sensors(protocol, addr_mc)
-    #await read_sensors(protocol, addr_mc, sensor_array)
+    print(addr_mc)
+    #sensor_array = await get_sensors(protocol, addr_mc)
+    ##await read_sensors(protocol, addr_mc, sensor_array)
     
-    await led_blink(protocol, addr_mc)
+    #await led_blink(protocol, addr_mc)
     
-    await protocol.shutdown()
+    #await protocol.shutdown()
     
     
 if __name__ == '__main__':
