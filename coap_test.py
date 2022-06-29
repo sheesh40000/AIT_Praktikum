@@ -1,6 +1,9 @@
 from aiocoap import *
 import asyncio
 
+from datetime import datetime
+
+
 
 async def get_addr(protocol):
     addr = "coap://[2001:67c:254:b0b2:affe:4000:0:1]/"
@@ -12,17 +15,6 @@ async def get_addr(protocol):
     for splitted in resp_str.split('base="'):
         if splitted[:4] == 'coap':
             addr_mc.append(splitted[:splitted.find('"')])
-    
-    
-    
-    
-    #print(resp_str)
-    
-    #addr_pos = resp_str.find('base="');
-    #print(addr_pos)
-    
-    #addr_mc = resp_str[addr_pos + 6:resp_str.find('"', addr_pos + 6)]
-    #print(addr_mc)
     
     return addr_mc
     
@@ -87,14 +79,24 @@ async def led_blink(protocol, addr):
 async def main():    
     protocol = await Context.create_client_context()
     
-    addr_mc = await get_addr(protocol)
-    print(addr_mc)
-    #sensor_array = await get_sensors(protocol, addr_mc)
-    ##await read_sensors(protocol, addr_mc, sensor_array)
+    addr_mc_ar = await get_addr(protocol)
+    print(addr_mc_ar)
+    
+    addr_mc = addr_mc_ar[0]
+    
+    sensor_array = await get_sensors(protocol, addr_mc)
+    
+    
+    now = datetime.now().time()
+    print("now =", now)
+    
+    await read_sensors(protocol, addr_mc, sensor_array)
+    
+    print("now =", now)
     
     #await led_blink(protocol, addr_mc)
     
-    #await protocol.shutdown()
+    await protocol.shutdown()
     
     
 if __name__ == '__main__':
