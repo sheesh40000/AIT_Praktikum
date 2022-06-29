@@ -11,7 +11,7 @@ async def get_addr(protocol):
     addr_mc = []
     for splitted in resp_str.split('base="'):
         if splitted[:4] == 'coap':
-            addr_mc.append(splitted[:splitted.find('"'])
+            addr_mc.append(splitted[:splitted.find(['"'])
     
     
     
