@@ -84,7 +84,9 @@ async def main():
     
     addr_mc = addr_mc_ar[0]
     
-    await read_sensors(protocol, addr_mc, ["/btn/0", "/btn/1"])
+#    await read_sensors(protocol, addr_mc, ["/btn/0", "/btn/1"])
+    
+    await read_sensors(protocol, addr_mc, ["/sensor/acce"])
     
     #sensor_array = await get_sensors(protocol, addr_mc)
     
