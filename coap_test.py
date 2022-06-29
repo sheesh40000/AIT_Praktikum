@@ -92,6 +92,8 @@ async def main():
     
     await read_sensors(protocol, addr_mc, sensor_array)
     
+    
+    now = datetime.now().time()
     print("now =", now)
     
     #await led_blink(protocol, addr_mc)
