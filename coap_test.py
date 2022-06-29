@@ -84,17 +84,19 @@ async def main():
     
     addr_mc = addr_mc_ar[0]
     
-    sensor_array = await get_sensors(protocol, addr_mc)
+    await read_sensors(protocol, addr_mc, ["/btn/0", "/btn/1"])
+    
+    #sensor_array = await get_sensors(protocol, addr_mc)
     
     
-    now = datetime.now().time()
-    print("now =", now)
+    #now = datetime.now().time()
+    #print("now =", now)
     
-    await read_sensors(protocol, addr_mc, sensor_array)
+    #await read_sensors(protocol, addr_mc, sensor_array)
     
     
-    now = datetime.now().time()
-    print("now =", now)
+    #now = datetime.now().time()
+    #print("now =", now)
     
     #await led_blink(protocol, addr_mc)
     
