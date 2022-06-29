@@ -7,13 +7,22 @@ async def get_addr(protocol):
     response = await protocol.request(Message(code=GET, uri=addr + "endpoint-lookup/")).response
     
     resp_str = str(response.payload)
-    print(resp_str)
     
-    addr_pos = resp_str.find('base="');
-    print(addr_pos)
+    addr_mc = []
+    for splitted in resp_str.split('base="'):
+        if splitted[:4] = 'coap':
+            addr_mc.append(splitted[:splitted.find('"'])
     
-    addr_mc = resp_str[addr_pos + 6:resp_str.find('"', addr_pos + 6)]
-    print(addr_mc)
+    
+    
+    
+    #print(resp_str)
+    
+    #addr_pos = resp_str.find('base="');
+    #print(addr_pos)
+    
+    #addr_mc = resp_str[addr_pos + 6:resp_str.find('"', addr_pos + 6)]
+    #print(addr_mc)
     
     return addr_mc
     
@@ -30,8 +39,9 @@ async def get_sensors(protocol, addr_mc):
         print(s_repl)    
     
     return sensor_array
+ 
     
-    
+# Fkt: Werte der Sensoren anzeigen / Werte der Sensoren aktualisieren
 async def read_sensors(protocol, addr, sensor_array):
     for sensor in sensor_array:
         response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
