@@ -52,10 +52,10 @@ async def tictactoe():
         print('Player', p, ':')
 
         #x = input()
-        x = cursor_loc()
+        x = await cursor_loc()
 
         ttt_ar[int(x[:1])][int(x[1:])] = str(p)
-        end = ttt_end(ttt_ar, p)
+        end = await ttt_end(ttt_ar, p)
         if p == 1:
             p = 2
         else:
@@ -89,10 +89,10 @@ async def ttt_end(ar, p):
 async def cursor_loc():
 
     # 0,0,1 = normalzustand
-	# 0,1,0 = 90° links
-	# 0,-1,0 = 90° rechts
-	# -1,0,0 = 90° vorne
-	# 1,0,0 = 90° hinten
+    # 0,1,0 = 90° links
+    # 0,-1,0 = 90° rechts
+    # -1,0,0 = 90° vorne
+    # 1,0,0 = 90° hinten
 
     dir = 0
     cur_loc = '00'
@@ -120,19 +120,19 @@ async def cursor_loc():
 
         # Links
         if x < 0.5 and y > 0.5 and z < 0.5:
-            cur_loc = add_dir(cur_loc, 1)
+            cur_loc = await add_dir(cur_loc, 1)
 
         # Rechts
         if x < 0.5 and y < -0.5 and z < 0.5:
-            cur_loc = add_dir(cur_loc, 2)
+            cur_loc = await add_dir(cur_loc, 2)
 
         # Oben
         if x < -0.5 and y < 0.5 and z < 0.5:
-            cur_loc = add_dir(cur_loc, 3)
+            cur_loc = await add_dir(cur_loc, 3)
 
         # Unten
         if x > 0.5 and y < 0.5 and z < 0.5:
-            cur_loc = add_dir(cur_loc, 4)
+            cur_loc = await add_dir(cur_loc, 4)
 
         # Umgedreht
         if x < 0.5 and y < 0.5 and z < -0.5:
