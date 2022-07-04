@@ -172,7 +172,7 @@ async def main():
 
     await read_sensors(protocol, addr_mc, ["/saul/mma8x5x/SENSE_ACCEL"])
     
-
+    tictactoe()
 
     await protocol.shutdown()
     
