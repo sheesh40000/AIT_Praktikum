@@ -99,13 +99,22 @@ async def cursor_loc(protocol, addr_mc):
     cur_loc = '00'
 
     while dir == 0:
-
-        # read = ACCE READ
+        
         print('cur_loc =', cur_loc)
+        print('READ IN...')
+        print('3')
+        await asyncio.sleep(1)
+        print('2')
+        await asyncio.sleep(1)
+        print('1')
+        await asyncio.sleep(1)
+        
         read = await read_sensors(protocol, addr_mc, ["/saul/mma8x5x/SENSE_ACCEL"])
         read = str(read)
         read = read[read.find('"d":')+5 : read.find(']')]
-
+        
+        print('READ SUCCESSFUL:', read)
+        
         x,y,z = read.split(',')
         
         print('x:', x)
