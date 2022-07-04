@@ -168,7 +168,7 @@ async def main():
     
     sensor_array = await get_sensors(protocol, addr_mc)
 
-    await read_sensors(protocol, addr_mc, ["/sensor/acce"])
+    await read_sensors(protocol, addr_mc, ["/saul/mma8x5x/SENSE_ACCEL"])
     
 
 
