@@ -30,10 +30,9 @@ async def get_sensors(protocol, addr_mc):
     return sensor_array
     
 
-async def read_sensors(protocol, addr, sensor_array):
-    for sensor in sensor_array:
-        response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
-        print("sensor: " + sensor + " --- response: {}". format(response.payload))
+async def read_accel(protocol, addr, sensor):
+    response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
+    print("sensor: " + sensor + " --- response: {}". format(response.payload))
     return response.payload
 
 
@@ -49,8 +48,8 @@ async def tictactoe(protocol, addr_mc):
     
     while end == 0:
 
-        print('Aktuelles Spiel: ', ttt_ar)
-        print('Player', p, ':')
+        print('Current field:', ttt_ar)
+        print('Current player:', p)
 
         x = await cursor_loc(protocol, addr_mc)
 
@@ -72,18 +71,19 @@ async def tictactoe(protocol, addr_mc):
         print('Draw!')
         
 async def ttt_end(ar, p):
-    # Reihen
+    # Check rows
     if (ar[0][0] + ar[0][1] + ar[0][2]) in ['111','222'] or (ar[1][0] + ar[1][1] + ar[1][2]) in ['111','222'] or (ar[2][0] + ar[2][1] + ar[2][2]) in ['111','222']:
         return p
     
-    # Spalten
+    # Check columns
     if (ar[0][0] + ar[1][0] + ar[2][0]) in ['111','222'] or (ar[0][1] + ar[1][1] + ar[2][1]) in ['111','222'] or (ar[0][2] + ar[1][2] + ar[2][2]) in ['111','222']:
         return p
     
-    # Diagonal
+    # Check diagonal
     if (ar[0][0] + ar[1][1] + ar[2][2]) in ['111','222'] or (ar[0][2] + ar[1][1] + ar[2][0]) in ['111','222']:
         return p
     
+    # Check draw
     if '0' not in (ar[0][0] + ar[0][1] + ar[0][2] + ar[1][0] + ar[1][1] + ar[1][2] + ar[2][0] + ar[2][1] + ar[2][2]):
         return 3
     
@@ -92,6 +92,7 @@ async def ttt_end(ar, p):
 async def cursor_loc(protocol, addr_mc):
 
     # 0,0,1 = normalzustand
+    # 0,0,-1 = umgedreht
     # 0,1,0 = 90° links
     # 0,-1,0 = 90° rechts
     # -1,0,0 = 90° vorne
@@ -111,8 +112,9 @@ async def cursor_loc(protocol, addr_mc):
         print('1')
         await asyncio.sleep(1)
         
-        read = await read_sensors(protocol, addr_mc, ["/saul/mma8x5x/SENSE_ACCEL"])
+        read = await read_sensors(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
         read = str(read)
+        
         read = read[read.find('"d":')+5 : read.find(']')]
         
         print('READ SUCCESSFUL:', read)
@@ -124,11 +126,7 @@ async def cursor_loc(protocol, addr_mc):
         x = float(x)
         y = float(y)
         z = float(z)
-
-        #x = int(read[:1])
-        #y = int(read[1:2])
-        #z = int(read[2:])
-
+        
         # Normalzustand
         if x < 0.5 and y < 0.5 and z > 0.5:
             print('No Direction!')
@@ -157,14 +155,10 @@ async def add_dir(cur_loc, dir):
     x = int(cur_loc[:1])
     y = int(cur_loc[1:])
 
-    if dir == 1:
-        y = y - 1
-    elif dir == 2:
-        y = y + 1
-    elif dir == 3:
-        x = x - 1
-    elif dir == 4:
-        x = x + 1
+    if   dir == 1 : y = y - 1  # Links
+    elif dir == 2 : y = y + 1  # Rechts
+    elif dir == 3 : x = x - 1  # Oben
+    elif dir == 4 : x = x + 1  # Unten
 
     if x == -1 : x = 2
     if x == 3  : x = 0
