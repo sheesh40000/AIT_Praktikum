@@ -52,15 +52,17 @@ async def tictactoe(protocol, addr_mc):
         print('Aktuelles Spiel: ', ttt_ar)
         print('Player', p, ':')
 
-        #x = input()
         x = await cursor_loc(protocol, addr_mc)
 
-        ttt_ar[int(x[:1])][int(x[1:])] = str(p)
-        end = await ttt_end(ttt_ar, p)
-        if p == 1:
-            p = 2
+        if ttt_ar[int(x[:1])][int(x[1:])] == '0':
+            ttt_ar[int(x[:1])][int(x[1:])] = str(p)
+            end = await ttt_end(ttt_ar, p)
+            if p == 1:
+                p = 2
+            else:
+                p = 1
         else:
-            p = 1
+            print('ACTION NOT ALLOWED!')
 
     if end == 1:
         print('Player 1 wins!')
@@ -117,9 +119,7 @@ async def cursor_loc(protocol, addr_mc):
         
         x,y,z = read.split(',')
         
-        print('x:', x)
-        print('y:', y)
-        print('z:', z)
+        print('x:', x, '; y:', y, '; z:', z)
         
         x = float(x)
         y = float(y)
