@@ -37,7 +37,7 @@ async def read_sensors(protocol, addr, sensor_array):
 
 
 
-async def tictactoe():
+async def tictactoe(protocol, addr_mc):
     
     ttt_ar = [['0','0','0']
              ,['0','0','0']
@@ -52,7 +52,7 @@ async def tictactoe():
         print('Player', p, ':')
 
         #x = input()
-        x = await cursor_loc()
+        x = await cursor_loc(protocol, addr_mc)
 
         ttt_ar[int(x[:1])][int(x[1:])] = str(p)
         end = await ttt_end(ttt_ar, p)
@@ -86,7 +86,7 @@ async def ttt_end(ar, p):
     
     return 0
 
-async def cursor_loc():
+async def cursor_loc(protocol, addr_mc):
 
     # 0,0,1 = normalzustand
     # 0,1,0 = 90° links
@@ -172,7 +172,7 @@ async def main():
 
     await read_sensors(protocol, addr_mc, ["/saul/mma8x5x/SENSE_ACCEL"])
     
-    await tictactoe()
+    await tictactoe(protocol, addr_mc)
 
     await protocol.shutdown()
     
