@@ -103,7 +103,7 @@ async def cursor_loc():
         print('cur_loc =', cur_loc)
         read = await read_sensors(protocol, addr_mc, ["/saul/mma8x5x/SENSE_ACCEL"])
 	
-	read = read[read.find('"d":')+5 : read.find(']')]
+        read = read[read.find('"d":')+5 : read.find(']')]
 
         x,y,z = read.split(',')
         x = int(x)
