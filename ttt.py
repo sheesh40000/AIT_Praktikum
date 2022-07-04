@@ -15,6 +15,19 @@ async def get_addr(protocol):
             addr_mc.append(splitted[:splitted.find('"')])
     
     return addr_mc
+
+async def get_sensors(protocol, addr_mc):
+    response = await protocol.request(Message(code=GET, uri=addr_mc + "/.well-known/core")).response
+    print("response: {}". format(response.payload))
+
+    sensor_list = str(response.payload)[2:]
+    sensor_array = []
+    for s in sensor_list.split(","):
+        s_repl = s.replace("<", "").replace(">", "").replace("'", "")
+        sensor_array.append(s_repl)
+        print(s_repl)    
+    
+    return sensor_array
     
 
 async def read_sensors(protocol, addr, sensor_array):
@@ -153,6 +166,8 @@ async def main():
     
     addr_mc = addr_mc_ar[0]
     
+    sensor_array = await get_sensors(protocol, addr_mc)
+
     await read_sensors(protocol, addr_mc, ["/sensor/acce"])
     
 
