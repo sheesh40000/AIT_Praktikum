@@ -142,11 +142,11 @@ async def cursor_loc(protocol, addr_mc):
             cur_loc = await add_dir(cur_loc, 2)
 
         # Oben
-        if x < -0.5 and y < 0.5 and z < 0.5:
+        if x > 0.5 and y < 0.5 and z < 0.5:
             cur_loc = await add_dir(cur_loc, 3)
 
         # Unten
-        if x > 0.5 and y < 0.5 and z < 0.5:
+        if x < -0.5 and y < 0.5 and z < 0.5:
             cur_loc = await add_dir(cur_loc, 4)
 
         # Umgedreht
