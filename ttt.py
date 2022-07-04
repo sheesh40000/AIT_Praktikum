@@ -30,7 +30,7 @@ async def get_sensors(protocol, addr_mc):
     return sensor_array
     
 
-async def read_accel(protocol, addr, sensor):
+async def read_sensor(protocol, addr, sensor):
     response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
     print("sensor: " + sensor + " --- response: {}". format(response.payload))
     return response.payload
@@ -112,7 +112,7 @@ async def cursor_loc(protocol, addr_mc):
         print('1')
         await asyncio.sleep(1)
         
-        read = await read_sensors(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
+        read = await read_sensor(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
         read = str(read)
         
         read = read[read.find('"d":')+5 : read.find(']')]
