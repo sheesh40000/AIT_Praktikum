@@ -179,7 +179,7 @@ async def main():
     
     #sensor_array = await get_sensors(protocol, addr_mc)
 
-    await read_sensors(protocol, addr_mc, ["/saul/mma8x5x/SENSE_ACCEL"])
+    await read_sensor(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
     
     await tictactoe(protocol, addr_mc)
 
