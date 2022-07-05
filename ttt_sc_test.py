@@ -60,13 +60,10 @@ async def cursor_loc(protocol, addr_mc, screen, player):
 
     dir = 0
     cur_loc = '00'
-    direction = ''
+    direction = '             '
 
     while dir == 0:
-        #screen.move(10, 0)
-        #screen.clrtoeol()
-        #screen.move(9, 0)
-        #screen.clrtoeol()
+                        
         screen.addstr(0, 0, playing_field)
         screen.addstr(8, 0, f'Player: {player}')
         screen.addstr(10, 0, f'Direction: {direction}')
@@ -137,7 +134,6 @@ async def cursor_loc(protocol, addr_mc, screen, player):
             direction = 'Click!       '
             screen.addstr(10, 0, f'Direction: {direction}')
             screen.refresh()
-            direction = '             '
             return cur_loc
 
 def add_dir(cur_loc, dir):
