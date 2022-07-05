@@ -187,11 +187,11 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
         #screen.refresh()
 
     if end == 1:
-        screen.addstr(9, 0, 'Player 1 wins!')
+        screen.addstr(9, 0, 'Player 1 wins!    ')
     elif end == 2:
-        screen.addstr(9, 0, 'Player 2 wins!')
+        screen.addstr(9, 0, 'Player 2 wins!    ')
     elif end == 3:
-        screen.addstr(9, 0, 'Draw!')
+        screen.addstr(9, 0, 'Draw!             ')
     screen.refresh()
     await asyncio.sleep(5)
 
