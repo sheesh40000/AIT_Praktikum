@@ -270,6 +270,8 @@ async def ttt_main(screen):
     #await read_sensor(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
 
     await tictactoe(protocol, mc_p1, mc_p2, screen)
+            
+    await protocol.shutdown()
     # screen.clear()
 
     # while True:
