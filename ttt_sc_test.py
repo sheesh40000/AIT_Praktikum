@@ -106,7 +106,7 @@ async def cursor_loc(protocol, addr_mc, screen, player):
             cur_loc = add_dir(cur_loc, 4)
             direction = 'Down!        '
         
-        # set direction and clear 'No Direction'
+        # set direction and clear 'Action not allowed!'
         screen.addstr(11, 0, '                   ')
         screen.refresh()
 
