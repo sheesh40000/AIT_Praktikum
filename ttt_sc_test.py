@@ -279,7 +279,7 @@ async def ttt_main(screen):
     await player_led(protocol, mc_p1, '1')
     await player_led(protocol, mc_p2, '2')
 
-    await read_sensor(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
+    #await read_sensor(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
 
     await tictactoe(protocol, mc_p1, mc_p2, screen)
     # screen.clear()
