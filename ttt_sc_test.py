@@ -134,6 +134,7 @@ async def cursor_loc(protocol, addr_mc, screen, player):
 
         # Umgedreht
         if x < 0.5 and y < 0.5 and z < -0.5:
+            direction = 'Click!       '
             return cur_loc
 
 def add_dir(cur_loc, dir):
