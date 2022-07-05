@@ -247,6 +247,10 @@ async def player_led(protocol, addr, player):
         response = await protocol.request(request).response
 
 async def ttt_main(screen):
+    
+    screen.addstr(2, 0, 'Initializing!')
+    screen.refresh()
+    
     protocol = await Context.create_client_context()
     addr_mc_ar = await get_addr(protocol)
             
