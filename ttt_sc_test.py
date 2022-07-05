@@ -76,9 +76,7 @@ async def cursor_loc(protocol, addr_mc, screen, player):
 
         for k in field_pos.keys():
             screen.addstr(field_pos[k][0], field_pos[k][1], f'{ttt_ar[int(k[0])][int(k[1])]}')
-            
-        await asyncio.sleep(3)
-
+           
         # print('cur_loc =', cur_loc)
         screen.addstr(9, 0, 'READ IN...')
         screen.addstr(9, 12, '3')
