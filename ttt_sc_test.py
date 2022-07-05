@@ -60,7 +60,7 @@ async def cursor_loc(protocol, addr_mc, screen, player):
 
     dir = 0
     cur_loc = '00'
-    #direction = 'No Direction'
+    direction = ''
 
     while dir == 0:
         #screen.move(10, 0)
