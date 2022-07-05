@@ -195,7 +195,6 @@ async def tictactoe(protocol, addr_mc, screen):
             end = await ttt_end(ttt_ar, p)
             screen.addstr(21, 0, f'End {end}')
             screen.refresh()
-            await asyncio.sleep(3)
             if p == 1:
                 p = 2
                 sym = 'O'
@@ -205,7 +204,6 @@ async def tictactoe(protocol, addr_mc, screen):
                 sym = 'X'
         else:
             screen.addstr(11, 0, 'ACTION NOT ALLOWED!')
-            await asyncio.sleep(3)
         screen.refresh()
 
     if end == 1:
