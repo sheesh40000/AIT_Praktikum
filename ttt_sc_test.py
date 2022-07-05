@@ -111,9 +111,6 @@ async def cursor_loc(protocol, addr_mc, screen, player):
         screen.refresh()
 
         # while-escape
-
-
-
         # Umgedreht
         if x < 0.5 and y < 0.5 and z < -0.5:
             direction = 'Click!       '
@@ -170,8 +167,6 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
         if ttt_ar[int(set_loc[:1])][int(set_loc[1:])] == '':
             ttt_ar[int(set_loc[:1])][int(set_loc[1:])] = sym
             end = await ttt_end(ttt_ar, p)
-            #screen.addstr(21, 0, f'End {end}')
-            #screen.refresh()
             if p == 1:
                 p = 2
                 sym = 'O'
@@ -184,7 +179,6 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
             
         else:
             screen.addstr(11, 0, 'ACTION NOT ALLOWED!')
-        #screen.refresh()
 
     if end == 1:
         screen.addstr(9, 0, 'Player 1 wins!    ')
@@ -243,17 +237,15 @@ async def player_led(protocol, addr, player):
 async def ttt_main(screen):
     
     screen.addstr(2, 0, 'Initializing!')
+    screen.addstr(13, 0, 'Player 1: RED!')
+    screen.addstr(14, 0, 'Player 2: GREEN!')
     screen.refresh()
-    
+
     protocol = await Context.create_client_context()
     addr_mc_ar = await get_addr(protocol)
             
     mc_p1 = addr_mc_ar[0]
     mc_p2 = addr_mc_ar[1]
-    
-    screen.addstr(13, 0, 'Player 1: RED!')
-    screen.addstr(14, 0, 'Player 2: GREEN!')
-    screen.refresh()
             
     await player_led(protocol, mc_p1, '1')
     await player_led(protocol, mc_p2, '2')
