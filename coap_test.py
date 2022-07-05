@@ -84,9 +84,9 @@ async def main():
     
     addr_mc = addr_mc_ar[0]
     
-#    await read_sensors(protocol, addr_mc, ["/btn/0", "/btn/1"])
+    await read_sensors(protocol, addr_mc, ["/btn/0", "/btn/1"])
     
-    await read_sensors(protocol, addr_mc, ["/sensor/hum"])
+    #await read_sensors(protocol, addr_mc, ["/sensor/hum"])
     
     #sensor_array = await get_sensors(protocol, addr_mc)
     
@@ -94,7 +94,7 @@ async def main():
     #now = datetime.now().time()
     #print("now =", now)
     
-    # await read_sensors(protocol, addr_mc, sensor_array)
+    await read_sensors(protocol, addr_mc, sensor_array)
     
     
     #now = datetime.now().time()
