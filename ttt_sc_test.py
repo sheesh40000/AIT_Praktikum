@@ -161,7 +161,7 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
     sym = 'X'
     active_mc = mc_p1
 
-    screen.addstr(0, 0, playing_field)
+    #screen.addstr(0, 0, playing_field)
             
     while end == 0:
 
