@@ -172,10 +172,11 @@ async def ttt_end(ar, p):
 
     return 0
 
-async def tictactoe(protocol, addr_mc, screen):
+async def tictactoe(protocol, mc_p1, mc_p2, screen):
     end = 0
     p = 1
     sym = 'X'
+    active_mc = mc_p1
 
     while end == 0:
         screen.addstr(0, 0, playing_field)
@@ -188,7 +189,7 @@ async def tictactoe(protocol, addr_mc, screen):
         screen.refresh()
 
         set_loc = '00'
-        set_loc = await cursor_loc(protocol, addr_mc, screen, p)
+        set_loc = await cursor_loc(protocol, active_mc, screen, p)
 
         if ttt_ar[int(set_loc[:1])][int(set_loc[1:])] == '':
             ttt_ar[int(set_loc[:1])][int(set_loc[1:])] = sym
@@ -198,10 +199,13 @@ async def tictactoe(protocol, addr_mc, screen):
             if p == 1:
                 p = 2
                 sym = 'O'
+                active_mc = mc_p2
                         
             else:
                 p = 1
                 sym = 'X'
+                active_mc = mc_p1
+            
         else:
             screen.addstr(11, 0, 'ACTION NOT ALLOWED!')
         screen.refresh()
@@ -213,6 +217,7 @@ async def tictactoe(protocol, addr_mc, screen):
     elif end == 3:
         screen.addstr(9, 0, 'Draw!')
     screen.refresh()
+    await asyncio.sleep(5)
 
 async def read_sensor(protocol, addr, sensor):
     response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
@@ -231,14 +236,50 @@ async def get_addr(protocol):
 
     return addr_mc
 
+async def player_led(protocol, addr, player):
+    led_list = ['/saul/LED(blue)/ACT_SWITCH', '/saul/LED(green)/ACT_SWITCH', '/saul/LED(red)/ACT_SWITCH']
+    if player == '1':
+        # Red on
+        payload = bytes(str(1), 'ascii')
+        request = Message(code=PUT, payload=payload, uri=str(addr + led_list[2]))
+        response = await protocol.request(request).response
+        
+        # Others off
+        payload = bytes(str(0), 'ascii')
+        request = Message(code=PUT, payload=payload, uri=str(addr + led_list[0]))
+        response = await protocol.request(request).response
+        request = Message(code=PUT, payload=payload, uri=str(addr + led_list[1]))
+        response = await protocol.request(request).response
+        
+    elif player == '2':
+        # Green on
+        payload = bytes(str(1), 'ascii')
+        request = Message(code=PUT, payload=payload, uri=str(addr + led_list[1]))
+        response = await protocol.request(request).response
+        
+        # Others off
+        payload = bytes(str(0), 'ascii')
+        request = Message(code=PUT, payload=payload, uri=str(addr + led_list[0]))
+        response = await protocol.request(request).response
+        request = Message(code=PUT, payload=payload, uri=str(addr + led_list[2]))
+        response = await protocol.request(request).response
+
 async def ttt_main(screen):
     protocol = await Context.create_client_context()
     addr_mc_ar = await get_addr(protocol)
-    addr_mc = addr_mc_ar[0]
+            
+    mc_p1 = addr_mc_ar[0]
+    mc_p2 = addr_mc_ar[1]
+    
+    print('Player 1: RED')
+    print('Player 2: GREEN')
+    
+    await player_led(protocol, mc_p1, '1')
+    await player_led(protocol, mc_p2, '2')
 
     await read_sensor(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
 
-    await tictactoe(protocol, addr_mc, screen)
+    await tictactoe(protocol, mc_p1, mc_p2, screen)
     # screen.clear()
 
     # while True:
