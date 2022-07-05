@@ -17,7 +17,7 @@ from time import sleep
 from aiocoap import *
 import asyncio
 from curses import wrapper
-import ttt_game
+import ttt_sc_test
 
 ttt_ar = [  ['','',''],
             ['','',''],
@@ -63,15 +63,22 @@ async def cursor_loc(protocol, addr_mc, screen, player):
     direction = 'No Direction'
 
     while dir == 0:
-        screen.move(10, 0)
-        screen.clrtoeol()
-        screen.move(9, 0)
-        screen.clrtoeol()
+        #screen.move(10, 0)
+        #screen.clrtoeol()
+        #screen.move(9, 0)
+        #screen.clrtoeol()
 
         screen.addstr(0, 0, playing_field)
         screen.addstr(8, 0, f'Player: {player}')
         screen.addstr(10, 0, f'Direction: {direction}')
+        screen.addstr(20, 0, f'ttt_ar: {ttt_ar}')
         screen.move(field_pos[cur_loc][0], field_pos[cur_loc][1])
+
+
+        for k in field_pos.keys():
+            screen.addstr(field_pos[k][0], field_pos[k][1], f'{ttt_ar[int(k[0])][int(k[1])]}')
+            
+        await asyncio.sleep(3)
 
         # print('cur_loc =', cur_loc)
         screen.addstr(9, 0, 'READ IN...')
