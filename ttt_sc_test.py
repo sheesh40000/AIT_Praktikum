@@ -257,7 +257,6 @@ async def ttt_main(screen):
     mc_p1 = addr_mc_ar[0]
     mc_p2 = addr_mc_ar[1]
     
-
     screen.addstr(13, 0, 'Player 1: RED!')
     screen.addstr(14, 0, 'Player 2: GREEN!')
     screen.refresh()
@@ -265,19 +264,10 @@ async def ttt_main(screen):
     await player_led(protocol, mc_p1, '1')
     await player_led(protocol, mc_p2, '2')
 
-    #await read_sensor(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
-
     await tictactoe(protocol, mc_p1, mc_p2, screen)
             
     await protocol.shutdown()
-    # screen.clear()
 
-    # while True:
-    #     screen.addstr(0, 0, playing_field)
-    #     for p in field_pos.keys():
-    #         screen.addstr(field_pos[p][0], field_pos[p][1], f'{ttt_array[int(p[0])][int(p[1])]}')
-    #         screen.move(field_pos[curser_loc][0], field_pos[curser_loc][1])
-    #     screen.refresh()
 
 def main(screen):
     return asyncio.run(ttt_main(screen))
