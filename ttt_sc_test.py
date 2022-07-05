@@ -33,18 +33,10 @@ field_pos = {   '00': (2, 6),
 }
 async def cursor_loc(protocol, addr_mc, screen, player):
 
-    # 0,0,1 = normalzustand
-    # 0,0,-1 = umgedreht
-    # 0,1,0 = 90° links
-    # 0,-1,0 = 90° rechts
-    # -1,0,0 = 90° vorne
-    # 1,0,0 = 90° hinten
-
-    dir = 0
     cur_loc = '00'
     direction = '             '
 
-    while dir == 0:
+    while True:
         # initialize screen
         screen.addstr(0, 0, playing_field)
         screen.addstr(8, 0, f'Player: {player}')
@@ -85,7 +77,14 @@ async def cursor_loc(protocol, addr_mc, screen, player):
         x = float(x)
         y = float(y)
         z = float(z)
-
+            
+        # 0,0,1 = normalzustand
+        # 0,0,-1 = umgedreht
+        # 0,1,0 = 90° links
+        # 0,-1,0 = 90° rechts
+        # -1,0,0 = 90° vorne
+        # 1,0,0 = 90° hinten
+            
         # Normalzustand
         if x < 0.5 and y < 0.5 and z > 0.5:
             direction = 'No Direction!'
@@ -166,11 +165,6 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
             
     while end == 0:
 
-        screen.move(field_pos[cur_loc][0], field_pos[cur_loc][1])
-        screen.addstr(8, 0, f'Player: {p}')
-        screen.refresh()
-
-        #set_loc = '00'
         set_loc = await cursor_loc(protocol, active_mc, screen, p)
 
         if ttt_ar[int(set_loc[:1])][int(set_loc[1:])] == '':
