@@ -271,9 +271,11 @@ async def ttt_main(screen):
     mc_p1 = addr_mc_ar[0]
     mc_p2 = addr_mc_ar[1]
     
-    print('Player 1: RED')
-    print('Player 2: GREEN')
-    
+
+    screen.addstr(13, 0, 'Player 1: RED!')
+    screen.addstr(14, 0, 'Player 2: GREEN!')
+    screen.refresh()
+            
     await player_led(protocol, mc_p1, '1')
     await player_led(protocol, mc_p2, '2')
 
