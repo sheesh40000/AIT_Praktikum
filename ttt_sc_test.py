@@ -67,7 +67,6 @@ async def cursor_loc(protocol, addr_mc, screen, player):
         #screen.clrtoeol()
         #screen.move(9, 0)
         #screen.clrtoeol()
-        screen.clear()
         screen.addstr(0, 0, playing_field)
         screen.addstr(8, 0, f'Player: {player}')
         screen.addstr(10, 0, f'Direction: {direction}')
@@ -178,7 +177,7 @@ async def ttt_end(ar, p):
 async def tictactoe(protocol, addr_mc, screen):
     end = 0
     p = 1
-    sym = 'X' if p == 1 else 'O'
+    sym = 'X'
 
     while end == 0:
         screen.addstr(0, 0, playing_field)
@@ -201,8 +200,11 @@ async def tictactoe(protocol, addr_mc, screen):
             await asyncio.sleep(3)
             if p == 1:
                 p = 2
+                sym = 'O'
+                        
             else:
                 p = 1
+                sym = 'X'
         else:
             screen.addstr(11, 0, 'ACTION NOT ALLOWED!')
             await asyncio.sleep(3)
