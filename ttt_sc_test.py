@@ -162,21 +162,15 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
     sym = 'X'
     active_mc = mc_p1
 
-    
     screen.addstr(0, 0, playing_field)
-    screen.refresh()
             
     while end == 0:
-        #screen.addstr(0, 0, playing_field)
-
-        #for k in field_pos.keys():
-        #    screen.addstr(field_pos[k][0], field_pos[k][1], f'{ttt_ar[int(k[0])][int(k[1])]}')
 
         screen.move(field_pos[cur_loc][0], field_pos[cur_loc][1])
         screen.addstr(8, 0, f'Player: {p}')
         screen.refresh()
 
-        set_loc = '00'
+        #set_loc = '00'
         set_loc = await cursor_loc(protocol, active_mc, screen, p)
 
         if ttt_ar[int(set_loc[:1])][int(set_loc[1:])] == '':
