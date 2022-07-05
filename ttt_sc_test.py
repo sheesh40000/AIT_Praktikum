@@ -1,23 +1,9 @@
-# from asciimatics.screen import Screen, ManagedScreen
-# from time import sleep
-
-# class TestScreen(Screen):
-#     def __init__(self):
-#         super(TestScreen, self).__init__()
-
-# def demo(screen: Screen=None):
-#     screen.print_at('Hello World', 0, 0)
-#     screen.refresh()
-#     sleep(5)
-
-# TestScreen.wrapper(demo)
-
 import curses
 from time import sleep
 from aiocoap import *
 import asyncio
 from curses import wrapper
-import ttt_sc_test
+#import ttt_sc_test
 
 ttt_ar = [  ['','',''],
             ['','',''],
