@@ -32,7 +32,7 @@ async def get_sensors(protocol, addr_mc):
 
 async def read_sensor(protocol, addr, sensor):
     response = await protocol.request(Message(code=GET, uri=addr + sensor)).response
-    print("sensor: " + sensor + " --- response: {}". format(response.payload))
+    #print("sensor: " + sensor + " --- response: {}". format(response.payload))
     return response.payload
 
 
