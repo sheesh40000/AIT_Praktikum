@@ -67,7 +67,7 @@ async def cursor_loc(protocol, addr_mc, screen, player):
         #screen.clrtoeol()
         #screen.move(9, 0)
         #screen.clrtoeol()
-
+        screen.clear()
         screen.addstr(0, 0, playing_field)
         screen.addstr(8, 0, f'Player: {player}')
         screen.addstr(10, 0, f'Direction: {direction}')
