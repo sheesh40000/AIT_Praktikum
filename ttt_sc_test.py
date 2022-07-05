@@ -116,22 +116,22 @@ async def cursor_loc(protocol, addr_mc, screen, player):
         # Links
         if x < 0.5 and y > 0.5 and z < 0.5:
             cur_loc = add_dir(cur_loc, 1)
-            direction = 'Left!'
+            direction = 'Left!        '
 
         # Rechts
         if x < 0.5 and y < -0.5 and z < 0.5:
             cur_loc = add_dir(cur_loc, 2)
-            direction = 'Right!'
+            direction = 'Right!       '
 
         # Oben
         if x > 0.5 and y < 0.5 and z < 0.5:
             cur_loc = add_dir(cur_loc, 3)
-            direction = 'Up!'
+            direction = 'Up!          '
 
         # Unten
         if x < -0.5 and y < 0.5 and z < 0.5:
             cur_loc = add_dir(cur_loc, 4)
-            direction = 'Down!'
+            direction = 'Down!        '
         screen.refresh()
 
         # Umgedreht
