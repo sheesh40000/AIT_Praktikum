@@ -98,10 +98,9 @@ async def cursor_loc(protocol, addr_mc):
     # -1,0,0 = 90° vorne
     # 1,0,0 = 90° hinten
 
-    dir = 0
     cur_loc = '00'
 
-    while dir == 0:
+    while True:
         
         print('cur_loc =', cur_loc)
         print('READ IN...')
