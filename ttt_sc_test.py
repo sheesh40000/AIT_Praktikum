@@ -9,10 +9,6 @@ ttt_ar = [  ['','',''],
             ['','',''],
             ['','','']]
 
-# curser_loc = '00'
-
-# player = 1
-
 cur_loc = '00'
 
 playing_field = """
@@ -49,7 +45,7 @@ async def cursor_loc(protocol, addr_mc, screen, player):
     direction = '             '
 
     while dir == 0:
-                        
+        # initialize screen
         screen.addstr(0, 0, playing_field)
         screen.addstr(8, 0, f'Player: {player}')
         screen.addstr(10, 0, f'Direction: {direction}')
@@ -167,10 +163,10 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
     active_mc = mc_p1
 
     while end == 0:
-        screen.addstr(0, 0, playing_field)
+        #screen.addstr(0, 0, playing_field)
 
-        for k in field_pos.keys():
-            screen.addstr(field_pos[k][0], field_pos[k][1], f'{ttt_ar[int(k[0])][int(k[1])]}')
+        #for k in field_pos.keys():
+        #    screen.addstr(field_pos[k][0], field_pos[k][1], f'{ttt_ar[int(k[0])][int(k[1])]}')
 
         screen.move(field_pos[cur_loc][0], field_pos[cur_loc][1])
         screen.addstr(8, 0, f'Player: {p}')
