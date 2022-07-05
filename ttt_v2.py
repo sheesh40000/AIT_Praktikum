@@ -211,8 +211,8 @@ async def main():
     print('Player 1: RED')
     print('Player 2: GREEN')
     
-    player_led(protocol, mc_p1, '1')
-    player_led(protocol, mc_p2, '2')
+    await player_led(protocol, mc_p1, '1')
+    await player_led(protocol, mc_p2, '2')
     
     #sensor_array = await get_sensors(protocol, addr_mc)
 
