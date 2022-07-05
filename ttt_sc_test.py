@@ -127,6 +127,8 @@ async def cursor_loc(protocol, addr_mc, screen, player):
         if x < -0.5 and y < 0.5 and z < 0.5:
             cur_loc = add_dir(cur_loc, 4)
             direction = 'Down!        '
+            
+        screen.addstr(11, 0, '                   ')
         screen.refresh()
 
         # Umgedreht
