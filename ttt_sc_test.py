@@ -37,18 +37,18 @@ async def cursor_loc(protocol, addr_mc, screen, player):
     direction = '             '
 
     while True:
-        # initialize screen
+        # update screen
         screen.addstr(0, 0, playing_field)
         screen.addstr(8, 0, f'Player: {player}')
         screen.addstr(10, 0, f'Direction: {direction}')
-        screen.addstr(20, 0, f'ttt_ar: {ttt_ar}')
+        #screen.addstr(20, 0, f'ttt_ar: {ttt_ar}')
         screen.move(field_pos[cur_loc][0], field_pos[cur_loc][1])
 
-
+        # set X and O
         for k in field_pos.keys():
             screen.addstr(field_pos[k][0], field_pos[k][1], f'{ttt_ar[int(k[0])][int(k[1])]}')
-           
-        # print('cur_loc =', cur_loc)
+        
+        # 3, 2, 1 - Counter
         screen.addstr(9, 0, 'READ IN...')
         screen.addstr(9, 12, '3')
         screen.move(field_pos[cur_loc][0], field_pos[cur_loc][1])
@@ -63,16 +63,13 @@ async def cursor_loc(protocol, addr_mc, screen, player):
         screen.refresh()
         await asyncio.sleep(1)
 
+        # read sensor
         read = await read_sensor(protocol, addr_mc, '/saul/mma8x5x/SENSE_ACCEL')
         read = str(read)
 
         read = read[read.find('"d":')+5 : read.find(']')]
 
-        # print('READ SUCCESSFUL:', read)
-
         x,y,z = read.split(',')
-
-        # print('x:', x, '; y:', y, '; z:', z)
 
         x = float(x)
         y = float(y)
@@ -108,9 +105,14 @@ async def cursor_loc(protocol, addr_mc, screen, player):
         if x < -0.5 and y < 0.5 and z < 0.5:
             cur_loc = add_dir(cur_loc, 4)
             direction = 'Down!        '
-            
+        
+        # set direction and clear 'No Direction'
         screen.addstr(11, 0, '                   ')
         screen.refresh()
+
+        # while-escape
+
+
 
         # Umgedreht
         if x < 0.5 and y < 0.5 and z < -0.5:
@@ -160,9 +162,7 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
     p = 1
     sym = 'X'
     active_mc = mc_p1
-
-    #screen.addstr(0, 0, playing_field)
-            
+    
     while end == 0:
 
         set_loc = await cursor_loc(protocol, active_mc, screen, p)
@@ -170,8 +170,8 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
         if ttt_ar[int(set_loc[:1])][int(set_loc[1:])] == '':
             ttt_ar[int(set_loc[:1])][int(set_loc[1:])] = sym
             end = await ttt_end(ttt_ar, p)
-            screen.addstr(21, 0, f'End {end}')
-            screen.refresh()
+            #screen.addstr(21, 0, f'End {end}')
+            #screen.refresh()
             if p == 1:
                 p = 2
                 sym = 'O'
@@ -184,7 +184,7 @@ async def tictactoe(protocol, mc_p1, mc_p2, screen):
             
         else:
             screen.addstr(11, 0, 'ACTION NOT ALLOWED!')
-        screen.refresh()
+        #screen.refresh()
 
     if end == 1:
         screen.addstr(9, 0, 'Player 1 wins!')
